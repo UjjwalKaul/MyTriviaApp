@@ -73,9 +73,9 @@ dependencies {
     implementation(libs.retrofit)
 
     // Dagger - Hilt
-//    kapt (libs.hilt.android.compiler)
+    kapt (libs.hilt.android.compiler)
     implementation (libs.androidx.hilt.lifecycle.viewmodel)
-//    kapt (libs.androidx.hilt.compiler)
+    kapt (libs.androidx.hilt.compiler)
     implementation (libs.androidx.hilt.navigation.compose)
 
     //Retrofit
