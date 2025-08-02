@@ -1,6 +1,7 @@
 package com.ujjwal.mytriviaapp.di
 
 import com.ujjwal.mytriviaapp.network.QuestionAPI
+import com.ujjwal.mytriviaapp.repository.QuestionRepository
 import com.ujjwal.mytriviaapp.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -17,9 +18,12 @@ object AppModule {
     @Singleton
     @Provides
     fun provideQuestionAPI(): QuestionAPI {
-        return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build().create(QuestionAPI::class.java)
+        return Retrofit.Builder().baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+            .create(QuestionAPI::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun providesQuestionRepository(api: QuestionAPI) = QuestionRepository(api)
 }
