@@ -69,7 +69,8 @@ dependencies {
     //Dagger - Hilt
     implementation (libs.hilt.android)
 
-    //May need okkhttp also
+    //Retrofit
+    implementation(libs.retrofit)
 
     // Dagger - Hilt
 //    kapt (libs.hilt.android.compiler)
