@@ -3,12 +3,7 @@
 [versions]
 agp = "8.8.2"
 converterGson = "2.9.0"
-hiltAndroid = "2.56.2"
-# Hilt compiler versions are usually tied to the Hilt Android version.
-# For androidx.hilt.compiler, it's tied to the androidx.hilt version, which is 1.2.0 based on your hiltLifecycleViewmodel.
-hiltAndroidCompiler = "2.56.2" # Add this for com.google.dagger:hilt-android-compiler
-androidxHiltCompiler = "1.2.0" # Add this for androidx.hilt:hilt-compiler
-hiltLifecycleViewmodel = "1.2.0"
+hiltNavigationCompose = "1.2.0"
 kotlin = "2.0.0"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -17,22 +12,19 @@ espressoCore = "3.7.0"
 kotlinxCoroutinesAndroid = "1.8.1"
 kotlinxCoroutinesCore = "1.8.0"
 kotlinxCoroutinesPlayServices = "1.8.1"
-lifecycleRuntimeKtx = "2.9.2"
 activityCompose = "1.10.1"
 composeBom = "2025.07.00"
 retrofit = "3.0.0"
+lifecycleRuntimeKtx = "2.9.2"
 
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-androidx-hilt-lifecycle-viewmodel = { module = "androidx.hilt:hilt-lifecycle-viewmodel", version.ref = "hiltLifecycleViewmodel" }
-androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltLifecycleViewmodel" }
-androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
-# Add Hilt compiler dependencies
-hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
-androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidxHiltCompiler" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
+hilt-android = { module = "com.google.dagger:hilt-android", version = "2.56.2" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version = "2.56.2" }
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
