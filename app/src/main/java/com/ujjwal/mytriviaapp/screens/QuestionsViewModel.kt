@@ -14,7 +14,7 @@ import javax.inject.Inject
 class QuestionsViewModel @Inject constructor(
     private val repository: QuestionRepository
 ) : ViewModel() {
-    private val data = mutableStateOf(DataOrException(Question(), true, Exception("")))
+     val data = mutableStateOf(DataOrException(Question(), true, Exception("")))
 
     init {
         getAllQuestions()
