@@ -1,16 +1,13 @@
 package com.ujjwal.mytriviaapp
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.ujjwal.mytriviaapp.screens.QuestionsViewModel
+import com.ujjwal.mytriviaapp.screens.TriviaHome
 import com.ujjwal.mytriviaapp.ui.theme.MyTriviaAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,21 +18,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyTriviaAppTheme {
-                Surface(modifier = Modifier.fillMaxSize()) {
-                    TriviaHome()
+                Scaffold (modifier = Modifier.fillMaxSize()) {innerPadding->
+                    TriviaHome(innerPadding)
                 }
             }
         }
     }
-}
-
-@Composable
-fun TriviaHome(viewModel: QuestionsViewModel = hiltViewModel()) {
-    Questions(viewModel)
-}
-
-@Composable
-fun Questions(viewModel: QuestionsViewModel= hiltViewModel()) {
-    val questions = viewModel.data.value.data?.toMutableList()
-    Log.d("Questions", "Questions: $questions")
 }
