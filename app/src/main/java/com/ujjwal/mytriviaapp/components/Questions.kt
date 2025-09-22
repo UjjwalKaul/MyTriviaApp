@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
@@ -125,8 +127,36 @@ fun QuestionDisplay(
                                 ) else Color.Red.copy(alpha = 0.3f)
                             )
                         )
-                        Text(text = answerText)
+                        val annotatedString=buildAnnotatedString {
+                            withStyle(style = SpanStyle(
+                                fontWeight = FontWeight.Light,
+                                color = if(correctAnswerState.value == true && index == answerState.value){
+                                    Color.Green
+                                }else if(correctAnswerState.value == false && index == answerState.value){
+                                    Color.Red
+                                }else{
+                                    AppColors.mOffWhite
+                                },
+                                fontSize = 20.sp
+                            )
+                            ){
+                                append(answerText)
+                            }
+                        }
+                        Text(annotatedString)
                     }
+                }
+                Button(
+                    onClick = {},
+                    modifier = Modifier
+                        .padding(5.dp)
+                        .align(Alignment.CenterHorizontally),
+                    shape = RoundedCornerShape(15.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = AppColors.mIndigo
+                    )
+                ) {
+                    Text("Next", fontWeight = FontWeight.Bold, color = AppColors.mTrueWhite, fontSize = 20.sp)
                 }
             }
         }
