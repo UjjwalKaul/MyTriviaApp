@@ -5,6 +5,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -23,6 +24,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -104,7 +106,10 @@ fun QuestionDisplay(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
+            if(questionIndex.value>=3) ShowProgressMeter(score = questionIndex.value)
+
             QuestionTracker(counter = questionIndex.value+1)
+
             DottedLine(pathEffect)
 
             Column {
@@ -230,35 +235,33 @@ fun DottedLine(pathEffect: PathEffect = PathEffect.dashPathEffect(floatArrayOf(1
 
 @Preview()
 @Composable
-fun ShowProgressMeter(score:Int=12) {
+fun ShowProgressMeter(score: Int = 3) {
     val gradient = Brush.linearGradient(listOf(Color(0xFFF95075), Color(0xFFBE6BE5)))
+    val progressFactor = remember(score) { mutableFloatStateOf(score * 0.015f) }
+
     Row(
         modifier = Modifier
             .padding(5.dp)
             .fillMaxWidth()
             .height(50.dp)
-            .border(width = 5.dp, brush = SolidColor(AppColors.mCharcoal), shape = RoundedCornerShape(30.dp))
+            .clip(RoundedCornerShape(30.dp))
+            .border(
+                width = 5.dp,
+                brush = SolidColor(AppColors.mCharcoal),
+                shape = RoundedCornerShape(30.dp)
+            )
             .background(Color.Transparent),
         verticalAlignment = Alignment.CenterVertically
-    ){
-        Button(
-            contentPadding = PaddingValues(1.dp),
-            onClick = {},
+    ) {
+        Box(
             modifier = Modifier
-                .clip(RoundedCornerShape(30.dp))
-                .fillMaxWidth()
-                .background(brush =gradient),
-            enabled = false,
-            elevation = null,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Transparent,
-                disabledContainerColor = Color.Transparent
-            )
-        ) { }
-
+                .fillMaxWidth(progressFactor.floatValue)
+                .fillMaxHeight()
+                .background(brush = gradient)
+        )
     }
-
 }
+
 
 
 
