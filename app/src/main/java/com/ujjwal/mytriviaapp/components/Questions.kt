@@ -21,6 +21,8 @@ import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -46,12 +48,25 @@ import com.ujjwal.mytriviaapp.util.AppColors
 @Composable
 fun Questions(viewModel: QuestionsViewModel = hiltViewModel()) {
     val questions = viewModel.data.value.data?.toMutableList()
+    val questionIndex=remember { mutableIntStateOf(0) }
 
     if (viewModel.data.value.loading == true) {
         CircularProgressIndicator()
     } else {
-        if(questions!=null){
-            QuestionDisplay(question=questions.first())
+        val question = try {
+            questions?.get(questionIndex.intValue)
+        } catch (e: Exception) {
+            null
+        }
+        if(question!=null){
+            QuestionDisplay(
+                question = question,
+                questionIndex = questionIndex,
+                viewModel = viewModel,
+                onNext = {
+                    questionIndex.intValue=it+1
+                }
+            )
         }
     }
     Log.d("Questions", "Questions: $questions")
@@ -61,9 +76,9 @@ fun Questions(viewModel: QuestionsViewModel = hiltViewModel()) {
 @Composable
 fun QuestionDisplay(
     question: QuestionItem,
-//    questionIndex: MutableState<Int>,
-//    viewModel: QuestionsViewModel,
-//    onNext: (Int) -> Unit
+    questionIndex: MutableState<Int>,
+    viewModel: QuestionsViewModel,
+    onNext: (Int) -> Unit
 ) {
     val choicesState = remember(question) { question.choices.toMutableList() }
     val answerState = remember(question) { mutableStateOf<Int?>(null) }
@@ -87,7 +102,7 @@ fun QuestionDisplay(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
-            QuestionTracker()
+            QuestionTracker(counter = questionIndex.value+1)
             DottedLine(pathEffect)
 
             Column {
@@ -147,7 +162,9 @@ fun QuestionDisplay(
                     }
                 }
                 Button(
-                    onClick = {},
+                    onClick = {
+                        onNext(questionIndex.value)
+                    },
                     modifier = Modifier
                         .padding(5.dp)
                         .align(Alignment.CenterHorizontally),
