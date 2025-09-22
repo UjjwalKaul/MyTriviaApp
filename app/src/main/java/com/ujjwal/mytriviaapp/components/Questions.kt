@@ -39,6 +39,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -106,7 +107,7 @@ fun QuestionDisplay(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
-            if(questionIndex.value>=3) ShowProgressMeter(score = questionIndex.value)
+            if(questionIndex.value>=1) ShowProgressMeter(score = questionIndex.value+1)
 
             QuestionTracker(counter = questionIndex.value+1)
 
@@ -257,8 +258,16 @@ fun ShowProgressMeter(score: Int = 3) {
             modifier = Modifier
                 .fillMaxWidth(progressFactor.floatValue)
                 .fillMaxHeight()
-                .background(brush = gradient)
-        )
+                .background(brush = gradient),
+            contentAlignment = Alignment.Center
+        ){
+            Text(
+                text = (score*10).toString(),
+                color = AppColors.mOffWhite,
+                fontWeight = FontWeight.SemiBold,
+                overflow = TextOverflow.Clip
+            )
+        }
     }
 }
 
