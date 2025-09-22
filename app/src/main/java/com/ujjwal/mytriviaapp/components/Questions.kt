@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,6 +33,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -202,11 +204,13 @@ fun QuestionTracker(counter: Int = 10, outOff: Int = 100) {
             ) {
                 append("$outOff")
             }
-        }, modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp)
+        }, modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 10.dp)
     )
 }
 
-@Preview
+//@Preview
 @Composable
 fun DottedLine(pathEffect: PathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)) {
     Canvas(
@@ -222,3 +226,56 @@ fun DottedLine(pathEffect: PathEffect = PathEffect.dashPathEffect(floatArrayOf(1
         )
     }
 }
+
+
+@Preview()
+@Composable
+fun ShowProgressMeter(score:Int=12) {
+    val gradient = Brush.linearGradient(listOf(Color(0xFFF95075), Color(0xFFBE6BE5)))
+    Row(
+        modifier = Modifier
+            .padding(5.dp)
+            .fillMaxWidth()
+            .height(50.dp)
+            .border(width = 5.dp, brush = SolidColor(AppColors.mCharcoal), shape = RoundedCornerShape(30.dp))
+            .background(Color.Transparent),
+        verticalAlignment = Alignment.CenterVertically
+    ){
+        Button(
+            contentPadding = PaddingValues(1.dp),
+            onClick = {},
+            modifier = Modifier
+                .clip(RoundedCornerShape(30.dp))
+                .fillMaxWidth()
+                .background(brush =gradient),
+            enabled = false,
+            elevation = null,
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Transparent,
+                disabledContainerColor = Color.Transparent
+            )
+        ) { }
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
