@@ -1,6 +1,5 @@
 package com.ujjwal.mytriviaapp.components
 
-import android.text.Layout
 import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -39,7 +38,6 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -89,7 +87,6 @@ fun QuestionDisplay(
     val answerState = remember(question) { mutableStateOf<Int?>(null) }
     val correctAnswerState = remember(question) { mutableStateOf<Boolean?>(null) }
     val pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
-
     val updateAnswer: (Int) -> Unit = remember(question) {
         { it: Int ->
             answerState.value = it
@@ -109,7 +106,7 @@ fun QuestionDisplay(
         ) {
             if(questionIndex.value>=1) ShowProgressMeter(score = questionIndex.value+1)
 
-            QuestionTracker(counter = questionIndex.value+1)
+            QuestionTracker(counter = questionIndex.value+1, outOff = viewModel.getTotalQuestionCount())
 
             DottedLine(pathEffect)
 
