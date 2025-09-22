@@ -1,5 +1,6 @@
 package com.ujjwal.mytriviaapp.components
 
+import android.text.Layout
 import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -7,7 +8,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -240,7 +240,7 @@ fun ShowProgressMeter(score: Int = 3) {
     val gradient = Brush.linearGradient(listOf(Color(0xFFF95075), Color(0xFFBE6BE5)))
     val progressFactor = remember(score) { mutableFloatStateOf(score * 0.015f) }
 
-    Row(
+    Box(
         modifier = Modifier
             .padding(5.dp)
             .fillMaxWidth()
@@ -252,22 +252,25 @@ fun ShowProgressMeter(score: Int = 3) {
                 shape = RoundedCornerShape(30.dp)
             )
             .background(Color.Transparent),
-        verticalAlignment = Alignment.CenterVertically
+        contentAlignment = Alignment.CenterStart
     ) {
+        // Progress bar
         Box(
             modifier = Modifier
                 .fillMaxWidth(progressFactor.floatValue)
                 .fillMaxHeight()
-                .background(brush = gradient),
-            contentAlignment = Alignment.Center
-        ){
-            Text(
-                text = (score*10).toString(),
-                color = AppColors.mOffWhite,
-                fontWeight = FontWeight.SemiBold,
-                overflow = TextOverflow.Clip
-            )
-        }
+                .background(brush = gradient)
+        )
+
+        // Score text
+        Text(
+            text = (score * 10).toString(),
+            color = AppColors.mOffWhite,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+                .padding(end = 20.dp)
+        )
     }
 }
 
